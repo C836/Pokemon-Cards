@@ -24,10 +24,8 @@ export class PokemonService {
     return await this.PokemonModel.findOne({id: id});
   }
 
-  update(id: number, pokemon: Pokemon) {
-    const target = this.pokemons.findIndex(card => card.id === id);
-    this.pokemons[target] = pokemon
-    return pokemon
+  async update(id: number, pokemon: Pokemon) {
+    return await this.PokemonModel.updateOne({id: id}, pokemon)
   }
 
   delete(id: number) {
