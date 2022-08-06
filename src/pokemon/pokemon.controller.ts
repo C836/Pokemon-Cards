@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, Put } from "@nestjs/common";
 import { Pokemon } from "./pokemon";
 import { PokemonService } from "./pokemon.service";
 
@@ -21,5 +21,12 @@ export class PokemonController {
   @Get('card/:id')
   async get(@Param('id') id: number): Promise<Pokemon> {
     return this.pokemonService.get(id)
+  }
+
+  @Put('update/:target')
+  async update(
+    @Param('target') id:number, 
+    @Body() pokemon: Pokemon): Promise<Pokemon> {
+    return this.pokemonService.update(id, pokemon)
   }
 }
