@@ -9,4 +9,8 @@ export class PokemonService {
     this.pokemons.push(pokemon);
     return pokemon
   }
+
+  getAll() {
+    return this.pokemons;
+  }
 }
