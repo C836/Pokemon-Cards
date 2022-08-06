@@ -13,4 +13,8 @@ export class PokemonService {
   getAll() {
     return this.pokemons;
   }
+
+  get(id: number) {
+    return this.pokemons.find(card => card.id === id);
+  }
 }
