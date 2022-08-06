@@ -20,8 +20,8 @@ export class PokemonService {
     return await this.PokemonModel.find();
   }
 
-  get(id: number) {
-    return this.pokemons.find(card => card.id === id);
+  async get(id: number) {
+    return await this.PokemonModel.findOne({id: id});
   }
 
   update(id: number, pokemon: Pokemon) {
