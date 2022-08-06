@@ -16,8 +16,8 @@ export class PokemonService {
     return await created.save()
   }
 
-  getAll() {
-    return this.pokemons;
+  async getAll() {
+    return await this.PokemonModel.find();
   }
 
   get(id: number) {
