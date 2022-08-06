@@ -23,4 +23,10 @@ export class PokemonService {
     this.pokemons[target] = pokemon
     return pokemon
   }
+
+  delete(id: number) {
+    const target = this.pokemons.findIndex(card => card.id === id);
+    this.pokemons.splice(target, 1)
+    return this.pokemons[target]
+  }
 }
