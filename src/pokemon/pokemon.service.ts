@@ -28,9 +28,7 @@ export class PokemonService {
     return await this.PokemonModel.updateOne({id: id}, pokemon)
   }
 
-  delete(id: number) {
-    const target = this.pokemons.findIndex(card => card.id === id);
-    this.pokemons.splice(target, 1)
-    return this.pokemons[target]
+  async delete(id: number) {
+    return await this.PokemonModel.deleteOne({id: id})
   }
 }
