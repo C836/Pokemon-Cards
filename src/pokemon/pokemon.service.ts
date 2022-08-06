@@ -10,9 +10,10 @@ export class PokemonService {
 
   pokemons: Pokemon[] = [];
 
-  create(pokemon: Pokemon) {
-    this.pokemons.push(pokemon);
-    return pokemon
+  async create(pokemon: Pokemon) {
+    const created = new this.PokemonModel(pokemon)
+
+    return await created.save()
   }
 
   getAll() {
