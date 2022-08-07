@@ -8,8 +8,6 @@ import { PokemonConfig } from 'src/types/pokemon.config';
 export class PokemonService {
   constructor(@InjectModel('Pokecards') private readonly PokemonModel: Model<PokemonConfig>) {}
 
-  pokemons: Pokemon[] = [];
-
   async create(pokemon: PokemonConfig) {
     this.PokemonModel(pokemon).save()
 
