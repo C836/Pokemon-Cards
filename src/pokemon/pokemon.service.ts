@@ -2,15 +2,15 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'moongose'
 
-import { Pokemon } from './pokemon';
+import { PokemonConfig } from 'src/types/pokemon.config';
 
 @Injectable()
 export class PokemonService {
-  constructor(@InjectModel('Pokecards') private readonly PokemonModel: Model<Pokemon>) {}
+  constructor(@InjectModel('Pokecards') private readonly PokemonModel: Model<PokemonConfig>) {}
 
   pokemons: Pokemon[] = [];
 
-  async create(pokemon: Pokemon) {
+  async create(pokemon: PokemonConfig) {
     this.PokemonModel(pokemon).save()
 
     return pokemon
@@ -24,7 +24,7 @@ export class PokemonService {
     return await this.PokemonModel.findOne({id: id});
   }
 
-  async update(id: number, pokemon: Pokemon) {
+  async update(id: number, pokemon: PokemonConfig) {
     this.PokemonModel.updateOne({id: id}, pokemon);
 
     return `Card id ${id} updated successfully`
