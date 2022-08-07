@@ -11,9 +11,9 @@ export class PokemonService {
   pokemons: Pokemon[] = [];
 
   async create(pokemon: Pokemon) {
-    const created = new this.PokemonModel(pokemon)
+    this.PokemonModel(pokemon).save()
 
-    return await created.save()
+    return pokemon
   }
 
   async getAll() {
@@ -25,10 +25,14 @@ export class PokemonService {
   }
 
   async update(id: number, pokemon: Pokemon) {
-    return await this.PokemonModel.updateOne({id: id}, pokemon)
+    this.PokemonModel.updateOne({id: id}, pokemon);
+
+    return `Card id ${id} updated successfully`
   }
 
   async delete(id: number) {
-    return await this.PokemonModel.deleteOne({id: id})
+    this.PokemonModel.deleteOne({id: id});
+
+    return `Card id ${id} removed from database`
   }
 }

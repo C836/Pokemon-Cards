@@ -26,12 +26,12 @@ export class PokemonController {
   @Put('update/:target')
   async update(
     @Param('target') id:number, 
-    @Body() pokemon: Pokemon): Promise<Pokemon> {
+    @Body() pokemon: Pokemon): Promise<string> {
     return this.pokemonService.update(id, pokemon)
   }
 
   @Delete('delete/:target')
-  async delete(@Param('target') id:number): Promise<Pokemon> {
+  async delete(@Param('target') id:number): Promise<string> {
     return this.pokemonService.delete(id)
   }
 }
