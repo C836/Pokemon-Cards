@@ -20,6 +20,6 @@ export class ArenaController {
     const Opponent = await this.pokemonService.get(opponentId); 
     
     const result = new BattleSystem(Pokemon, Opponent);
-    return result
+    return this.arenaService.battle(result)
   }
 }
