@@ -14,7 +14,7 @@ export class ArenaController {
   @Post('/:pokemon')
   async battle(
     @Param('pokemon') pokemonId: number,
-    @Query('vs') opponentId: number): Promise<any> {
+    @Query('vs') opponentId: number): Promise<BattleSystem> {
     
     const Pokemon = await this.pokemonService.get(pokemonId);
     const Opponent = await this.pokemonService.get(opponentId); 

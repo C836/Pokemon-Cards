@@ -1,15 +1,7 @@
+import { BattleDataConfig } from "src/types/arena.config";
+
 export class BattleSystem {
-  data: {
-    log: {
-      attacker: string;
-      atk: number;
-      defender: string;
-      def: number;
-      hp: number;
-      damage: number;
-    }[];
-    win: boolean;
-  };
+  data: BattleDataConfig
 
   constructor(Pokemon, Opponent) {
     this.data = this.battle(Pokemon, Opponent);

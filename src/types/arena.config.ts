@@ -1,8 +1,6 @@
 export interface BattleDataConfig {
-  data: {
-    log: TurnConfig[];
-    win: boolean;
-  };
+  log: TurnConfig[];
+  win: boolean;
 }
 
 export interface TurnConfig {
