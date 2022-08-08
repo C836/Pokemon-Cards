@@ -2,6 +2,7 @@ import { Controller, Post, Param, Query} from "@nestjs/common";
 
 import { PokemonService } from "src/pokemon/pokemon.service";
 import { ArenaService } from "./arena.service";
+import { BattleSystem } from "./arena.system";
 
 @Controller('arena')
 export class ArenaController {
@@ -18,6 +19,7 @@ export class ArenaController {
     const Pokemon = await this.pokemonService.get(pokemonId);
     const Opponent = await this.pokemonService.get(opponentId); 
     
-    return [Pokemon, Opponent]
+    const result = new BattleSystem(Pokemon, Opponent);
+    return result
   }
 }
