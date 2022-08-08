@@ -20,16 +20,19 @@ export class BattleSystem {
       const attacker = PokemonTurn ? Pokemon : Opponent;
       const defender = PokemonTurn ? Opponent : Pokemon;
 
-      const attack = Pokemon.attributes.attack;
-      const spAttack = Pokemon.attributes.spAttack;
+      const attack = attacker.attributes.attack;
+      const spAttack = attacker.attributes.spAttack;
 
-      const defense = Pokemon.attributes.defense;
-      const spDefense = Pokemon.attributes.spDefense;
+      const defense = defender.attributes.defense;
+      const spDefense = defender.attributes.spDefense;
 
       const finalAttack = attack > spAttack ? attack : spAttack;
       const finalDefense = finalAttack === attack ? defense : spDefense;
 
       const finalDamage = this.finalDamage(finalAttack, finalDefense);
+
+      let defenderHp = PokemonTurn ? OpponentHp : PokemonHp;
+      const preDamageHp = defenderHp.valueOf()
 
       if (PokemonTurn) {
         OpponentHp -= finalDamage;
@@ -37,13 +40,10 @@ export class BattleSystem {
         PokemonHp -= finalDamage;
       }
 
-      let defenderHp = PokemonTurn ? OpponentHp : PokemonHp;
-      defenderHp -= finalDamage;
-
       PokemonTurn = !PokemonTurn;
       OpponentTurn = !OpponentTurn;
 
-      log.push(this.format(attacker, defender, defenderHp, finalDamage));
+      log.push(this.format(attacker, defender, preDamageHp, finalDamage));
     }
 
     const win = OpponentHp <= 0;
@@ -77,3 +77,4 @@ export class BattleSystem {
     return parsedDamage;
   }
 }
+
