@@ -71,10 +71,15 @@ export class BattleSystem {
   }
 
   finalDamage(atk, def) {
-    const finalDamage = atk / def / 50 + 2;
+    //raw damage / (0.5 - (random number between 1 - 2)  +  (defense  ÷  100)) 
+
+    const finalDamage = atk / (this.randomNumber(1, 2) + (def / 100));
     const parsedDamage = Math.trunc(finalDamage)
 
     return parsedDamage;
   }
-}
 
+  randomNumber(min, max) {
+    return Math.random() * (max - min) + min
+  }
+}
