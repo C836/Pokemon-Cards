@@ -1,9 +1,8 @@
 export interface TurnConfig {
-  attacker: number;
+  attacker: string;
   atk: number;
-  spAtk: number;
-  defender: number;
+  defender: string;
   def: number;
-  spDef: number;
-  finalDamage: number;
+  hp: number;
+  damage: number;
 }
