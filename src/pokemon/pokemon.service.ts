@@ -12,52 +12,27 @@ export class PokemonService {
   ) {}
 
   async create(pokemon: PokemonConfig) {
-    try {
-      const result = await new this.PokemonModel(pokemon).save();
-      return result;
-    } 
-    catch (error) {
-      return error.message;
-    }
+    const result = await new this.PokemonModel(pokemon).save();
+    return result;
   }
 
   async getAll() {
-    try {
-      const result = await this.PokemonModel.find();
-      return result;
-    } 
-    catch (error) {
-      return error.message;
-    }
+    const result = await this.PokemonModel.find();
+    return result;
   }
 
   async get(id: number) {
-    try {
-      const result = await this.PokemonModel.findOne({ id: id }).orFail();
-      return result;
-    } 
-    catch (error) {
-      return error.message;
-    }
+    const result = await this.PokemonModel.findOne({ id: id }).orFail();
+    return result;
   }
 
   async update(id: number, pokemon: PokemonConfig) {
-    try {
-      await this.PokemonModel.findOneAndUpdate({ id: id }, pokemon).orFail();
-      return `Card id ${id} updated successfully`;
-    } 
-    catch (error) {
-      return error.message;
-    }
+    await this.PokemonModel.findOneAndUpdate({ id: id }, pokemon).orFail();
+    return `Card id ${id} updated successfully`;
   }
 
   async delete(id: number) {
-    try {
-      await this.PokemonModel.deleteOne({ id: id }).orFail();
-      return `Card id ${id} removed from database`;
-    } 
-    catch (error) {
-      return error.message;
-    }
+    await this.PokemonModel.deleteOne({ id: id }).orFail();
+    return `Card id ${id} removed from database`;
   }
 }
