@@ -1,5 +1,5 @@
+import { Document } from 'mongoose';
 import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
-
 import { PokemonService } from "./pokemon.service";
 import { PokemonConfig } from "src/types/pokemon.config";
 
@@ -10,17 +10,17 @@ export class PokemonController {
   ) {}
 
   @Post('new')
-  async create(@Body() pokemon: PokemonConfig): Promise<PokemonConfig> {
+  async create(@Body() pokemon: PokemonConfig): Promise<Document<PokemonConfig>> {
     return this.pokemonService.create(pokemon);
   }
 
   @Get('cards')
-  async getAll(): Promise<PokemonConfig[]> {
+  async getAll(): Promise<Document<PokemonConfig>[]> {
     return this.pokemonService.getAll()
   }
 
   @Get('card/:id')
-  async get(@Param('id') id: number): Promise<PokemonConfig> {
+  async get(@Param('id') id: number): Promise<Document<PokemonConfig>> {
     return this.pokemonService.get(id)
   }
 
