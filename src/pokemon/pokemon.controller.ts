@@ -1,5 +1,5 @@
 import { Document } from 'mongoose';
-import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post } from "@nestjs/common";
 import { PokemonService } from "./pokemon.service";
 import { PokemonConfig } from "src/types/pokemon.config";
 
@@ -24,7 +24,7 @@ export class PokemonController {
     return this.pokemonService.get(id)
   }
 
-  @Put('update/:target')
+  @Patch('update/:target')
   async update(
     @Param('target') id:number, 
     @Body() pokemon: PokemonConfig): Promise<string> {
