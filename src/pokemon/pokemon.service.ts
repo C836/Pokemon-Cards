@@ -1,36 +1,38 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'moongose'
+import { Model, Document } from 'mongoose';
 
 import { PokemonConfig } from 'src/types/pokemon.config';
 
 @Injectable()
 export class PokemonService {
-  constructor(@InjectModel('Pokecards') private readonly PokemonModel: Model<PokemonConfig>) {}
+  constructor(
+    @InjectModel('Pokecards')
+    private readonly PokemonModel: Model<Document<PokemonConfig>>,
+  ) {}
 
   async create(pokemon: PokemonConfig) {
-    this.PokemonModel(pokemon).save()
-
-    return pokemon
+    const result = await new this.PokemonModel(pokemon).save();
+    return result;
   }
 
   async getAll() {
-    return await this.PokemonModel.find();
+    const result = await this.PokemonModel.find();
+    return result;
   }
 
   async get(id: number) {
-    return await this.PokemonModel.findOne({id: id});
+    const result = await this.PokemonModel.findOne({ id: id }).orFail();
+    return result;
   }
 
   async update(id: number, pokemon: PokemonConfig) {
-    this.PokemonModel.updateOne({id: id}, pokemon);
-
-    return `Card id ${id} updated successfully`
+    await this.PokemonModel.findOneAndUpdate({ id: id }, pokemon).orFail();
+    return `Card id ${id} updated successfully`;
   }
 
   async delete(id: number) {
-    this.PokemonModel.deleteOne({id: id});
-
-    return `Card id ${id} removed from database`
+    await this.PokemonModel.deleteOne({ id: id }).orFail();
+    return `Card id ${id} removed from database`;
   }
 }

@@ -1,5 +1,5 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
-
+import { Document, Error } from 'mongoose';
+import { BadRequestException, Body, ConflictException, Controller, Delete, Get, NotFoundException, Param, Patch, Post } from "@nestjs/common";
 import { PokemonService } from "./pokemon.service";
 import { PokemonConfig } from "src/types/pokemon.config";
 
@@ -10,29 +10,76 @@ export class PokemonController {
   ) {}
 
   @Post('new')
-  async create(@Body() pokemon: PokemonConfig): Promise<PokemonConfig> {
-    return this.pokemonService.create(pokemon);
+  async create(
+    @Body() pokemon: PokemonConfig): Promise<Document<PokemonConfig> | BadRequestException | ConflictException> {
+
+    try { 
+      await this.pokemonService.get(pokemon.id);
+      return new ConflictException('Id already registered in database');
+    } 
+    catch(error) {
+      try {
+        const result = await this.pokemonService.create(pokemon);
+        return result;
+      } 
+      catch (error) {
+        return new BadRequestException(error.message);
+      }
+    }
+      
   }
 
   @Get('cards')
-  async getAll(): Promise<PokemonConfig[]> {
-    return this.pokemonService.getAll()
+  async getAll(): Promise<Document<PokemonConfig>[]> {
+    try {
+      const result = await this.pokemonService.getAll();
+      return result;
+    } 
+    catch (error) {
+      return error.message;
+    }
   }
 
   @Get('card/:id')
-  async get(@Param('id') id: number): Promise<PokemonConfig> {
-    return this.pokemonService.get(id)
+  async get(
+    @Param('id') id: number): Promise<Document<PokemonConfig>> {
+    try {
+      const result = await this.pokemonService.get(id);
+      return result;
+    } 
+    catch (error) {
+      throw new NotFoundException(error.message);
+    }
   }
 
-  @Put('update/:target')
+  @Patch('update/:target')
   async update(
     @Param('target') id:number, 
-    @Body() pokemon: PokemonConfig): Promise<string> {
-    return this.pokemonService.update(id, pokemon)
+    @Body() pokemon: PokemonConfig): Promise<string | NotFoundException | BadRequestException> {
+    try {
+      await this.pokemonService.update(id, pokemon)
+      return `Card id ${id} updated successfully`;
+    }
+    catch (error) {
+      if(error instanceof Error.DocumentNotFoundError) {
+        return new NotFoundException(error.message)
+      } else if (error instanceof Error.CastError){
+        return new BadRequestException(error.message)
+      }
+    }
   }
 
   @Delete('delete/:target')
-  async delete(@Param('target') id:number): Promise<string> {
-    return this.pokemonService.delete(id)
+  async delete(
+    @Param('target') id:number): Promise<string | NotFoundException> {
+    try {
+      await this.pokemonService.delete(id)
+      return `Card id ${id} removed from database`;
+    } 
+    catch (error) {
+
+        return new NotFoundException(error.message)
+
+    }
   }
 }
