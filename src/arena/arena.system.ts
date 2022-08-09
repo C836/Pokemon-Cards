@@ -49,6 +49,8 @@ export class BattleSystem {
     const win = OpponentHp <= 0;
 
     return {
+      pokemon: Pokemon.id,
+      opponent: Opponent.id,
       log: log,
       win: win,
     };
