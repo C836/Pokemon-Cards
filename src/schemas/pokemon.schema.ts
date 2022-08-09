@@ -1,15 +1,15 @@
-import * as moongose from 'mongoose'
+import * as moongose from 'mongoose';
 
 export const PokemonSchema = new moongose.Schema({
-  id: Number,
-  name: String,
-  type: [String],
+  id: { type: Number, required: true },
+  name: { type: String, required: true },
+  type: { type: [String], required: true },
   attributes: {
-    hp: Number,
-    attack: Number,
-    defense: Number,
-    spAttack: Number,
-    spDefense: Number,
-    speed: Number
-  }
-})
+    hp: { type: Number, required: true },
+    attack: { type: Number, required: true },
+    defense: { type: Number, required: true },
+    spAttack: { type: Number, required: true },
+    spDefense: { type: Number, required: true },
+    speed: { type: Number, required: true },
+  },
+});
