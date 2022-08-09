@@ -1,4 +1,4 @@
-export class Pokemon {
+export interface PokemonConfig {
   id: number;
   name: string;
   type: string[];

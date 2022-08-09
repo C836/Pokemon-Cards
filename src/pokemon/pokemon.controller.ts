@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
-import { Pokemon } from "./pokemon";
+
 import { PokemonService } from "./pokemon.service";
+import { PokemonConfig } from "src/types/pokemon.config";
 
 @Controller('pokemon')
 export class PokemonController {
@@ -9,29 +10,29 @@ export class PokemonController {
   ) {}
 
   @Post('new')
-  async create(@Body() pokemon: Pokemon): Promise<Pokemon> {
+  async create(@Body() pokemon: PokemonConfig): Promise<PokemonConfig> {
     return this.pokemonService.create(pokemon);
   }
 
   @Get('cards')
-  async getAll(): Promise<Pokemon[]> {
+  async getAll(): Promise<PokemonConfig[]> {
     return this.pokemonService.getAll()
   }
 
   @Get('card/:id')
-  async get(@Param('id') id: number): Promise<Pokemon> {
+  async get(@Param('id') id: number): Promise<PokemonConfig> {
     return this.pokemonService.get(id)
   }
 
   @Put('update/:target')
   async update(
     @Param('target') id:number, 
-    @Body() pokemon: Pokemon): Promise<Pokemon> {
+    @Body() pokemon: PokemonConfig): Promise<string> {
     return this.pokemonService.update(id, pokemon)
   }
 
   @Delete('delete/:target')
-  async delete(@Param('target') id:number): Promise<Pokemon> {
+  async delete(@Param('target') id:number): Promise<string> {
     return this.pokemonService.delete(id)
   }
 }
