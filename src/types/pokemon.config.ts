@@ -1,4 +1,6 @@
-export interface PokemonConfig {
+import { Document } from 'mongoose';
+
+export interface PokemonConfig extends Document {
   id: number;
   name: string;
   type: string[];
