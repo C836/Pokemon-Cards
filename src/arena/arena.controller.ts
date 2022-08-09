@@ -1,4 +1,4 @@
-import { Controller, Post, Param, Query} from "@nestjs/common";
+import { Controller, Post, Param, Query, Get} from "@nestjs/common";
 
 import { PokemonService } from "src/pokemon/pokemon.service";
 import { ArenaService } from "./arena.service";
@@ -21,5 +21,14 @@ export class ArenaController {
     
     const result = new BattleSystem(Pokemon, Opponent);
     return this.arenaService.battle(result)
+  }
+
+  @Get('/log/:pokemon')
+  async getLog(
+    @Param('pokemon') pokemonId: number): Promise<BattleSystem> {
+    
+    const logs = await this.arenaService.getLogs(pokemonId);
+    
+    return logs;
   }
 }
