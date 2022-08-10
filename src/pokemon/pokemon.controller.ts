@@ -29,10 +29,11 @@ export class PokemonController {
       
   }
 
-  @Get('cards')
-  async getAll(): Promise<Document<PokemonConfig>[]> {
+  @Get('cards/:page?')
+  async getAll(
+    @Param('page') page: number): Promise<Document<PokemonConfig>[]> {
     try {
-      const result = await this.pokemonService.getAll();
+      const result = await this.pokemonService.getAll(page);
       return result;
     } 
     catch (error) {
