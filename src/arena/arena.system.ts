@@ -29,7 +29,8 @@ export class BattleSystem {
       const finalAttack = attack > spAttack ? attack : spAttack;
       const finalDefense = finalAttack === attack ? defense : spDefense;
 
-      const finalDamage = this.finalDamage(finalAttack, finalDefense);
+      const damage = this.finalDamage(finalAttack, finalDefense);
+      const { critical, finalDamage } = damage
 
       let defenderHp = PokemonTurn ? OpponentHp : PokemonHp;
       const preDamageHp = defenderHp.valueOf()
@@ -43,7 +44,7 @@ export class BattleSystem {
       PokemonTurn = !PokemonTurn;
       OpponentTurn = !OpponentTurn;
 
-      log.push(this.format(attacker, defender, preDamageHp, finalDamage));
+      log.push(this.format(attacker, defender, preDamageHp, critical, finalDamage));
     }
 
     const win = OpponentHp <= 0;
@@ -56,7 +57,7 @@ export class BattleSystem {
     };
   }
 
-  format(attacker, defender, defenderhp, finalDamage) {
+  format(attacker, defender, defenderhp, critical, finalDamage) {
     const attackerName = attacker.name;
     const defenderName = defender.name;
 
@@ -66,6 +67,7 @@ export class BattleSystem {
       defender: defenderName,
       def: defender.def,
       hp: defenderhp,
+      critical: critical,
       damage: finalDamage,
     };
 
@@ -73,12 +75,18 @@ export class BattleSystem {
   }
 
   finalDamage(atk, def) {
-    //raw damage / (0.5 - (random number between 1 - 2)  +  (defense  ÷  100)) 
+    let damage = atk;
 
-    const finalDamage = atk / (this.randomNumber(2, 3) + (def / 100));
+    const isCritical = Math.floor(this.randomNumber(1, 10)) === 10
+    damage = isCritical ? damage * 2 : damage
+
+    const finalDamage = damage / (this.randomNumber(2, 3) + (def / 100));
     const parsedDamage = Math.trunc(finalDamage)
 
-    return parsedDamage;
+    return {
+      critical: isCritical,
+      finalDamage: parsedDamage
+    };
   }
 
   randomNumber(min, max) {
