@@ -1,5 +1,5 @@
 import { Document, Error } from 'mongoose';
-import { BadRequestException, Body, ConflictException, Controller, Delete, Get, NotFoundException, Param, Patch, Post } from "@nestjs/common";
+import { BadRequestException, Body, Query, ConflictException, Controller, Delete, Get, NotFoundException, Param, Patch, Post } from "@nestjs/common";
 import { PokemonService } from "./pokemon.service";
 import { PokemonConfig } from "src/types/pokemon.config";
 
@@ -29,10 +29,12 @@ export class PokemonController {
       
   }
 
-  @Get('cards')
-  async getAll(): Promise<Document<PokemonConfig>[]> {
+  @Get('cards/:page?')
+  async getAll(
+    @Param('page') page: number,
+    @Query('type') type: string): Promise<Document<PokemonConfig>[]> {
     try {
-      const result = await this.pokemonService.getAll();
+      const result = await this.pokemonService.getAll({page: page, type: type});
       return result;
     } 
     catch (error) {
