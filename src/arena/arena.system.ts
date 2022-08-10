@@ -1,4 +1,5 @@
 import { BattleDataConfig } from "src/types/arena.config";
+import { getMultiplier } from "src/utils/weakness/typeMultiplier";
 
 export class BattleSystem {
   data: BattleDataConfig
@@ -29,8 +30,11 @@ export class BattleSystem {
       const finalAttack = attack > spAttack ? attack : spAttack;
       const finalDefense = finalAttack === attack ? defense : spDefense;
 
-      const damage = this.finalDamage(finalAttack, finalDefense);
-      const { critical, finalDamage } = damage
+      const attackerTypes = attacker.type;
+      const defenderTypes = defender.type;
+
+      const damage = this.finalDamage(finalAttack, attackerTypes, finalDefense, defenderTypes);
+      const { multiplier, critical, finalDamage } = damage
 
       let defenderHp = PokemonTurn ? OpponentHp : PokemonHp;
       const preDamageHp = defenderHp.valueOf()
@@ -44,7 +48,7 @@ export class BattleSystem {
       PokemonTurn = !PokemonTurn;
       OpponentTurn = !OpponentTurn;
 
-      log.push(this.format(attacker, defender, preDamageHp, critical, finalDamage));
+      log.push(this.format(attacker, defender, preDamageHp, critical, multiplier, finalDamage));
     }
 
     const win = OpponentHp <= 0;
@@ -57,7 +61,7 @@ export class BattleSystem {
     };
   }
 
-  format(attacker, defender, defenderhp, critical, finalDamage) {
+  format(attacker, defender, defenderhp, critical, multiplier, finalDamage) {
     const attackerName = attacker.name;
     const defenderName = defender.name;
 
@@ -68,22 +72,27 @@ export class BattleSystem {
       def: defender.def,
       hp: defenderhp,
       critical: critical,
+      multiplier: multiplier,
       damage: finalDamage,
     };
 
     return result;
   }
 
-  finalDamage(atk, def) {
+  finalDamage(atk, attackerTypes, def, defenderTypes) {
     let damage = atk;
 
-    const isCritical = Math.floor(this.randomNumber(1, 10)) === 10
+    const isCritical = Math.floor(this.randomNumber(1, 10)) === 10;
+    const typeMultiplier = getMultiplier(attackerTypes, defenderTypes);
+
+    damage = damage * typeMultiplier    
     damage = isCritical ? damage * 2 : damage
 
     const finalDamage = damage / (this.randomNumber(2, 3) + (def / 100));
     const parsedDamage = Math.trunc(finalDamage)
 
     return {
+      multiplier: typeMultiplier,
       critical: isCritical,
       finalDamage: parsedDamage
     };
