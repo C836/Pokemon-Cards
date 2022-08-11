@@ -49,10 +49,10 @@ export class PokemonController {
     description: 'Lista todas as entradas de acordo com os parâmetros selecionados',
   })
   async getAll(
-    @Param('page') page: number,
-    @Query('type') type: string): Promise<Document<PokemonConfig>[]> {
+    @Query('page') page?: number,
+    @Query('type') type?: string): Promise<Document<PokemonConfig>[]> {
     try {
-      const result = await this.pokemonService.getAll({page: page, type: type});
+      const result = await this.pokemonService.getAll(page, type);
       return result;
     } 
     catch (error) {
@@ -72,13 +72,13 @@ export class PokemonController {
     description: 'Retorna o card selecionado',
   })
   async get(
-    @Param('id') id: number): Promise<Document<PokemonConfig>> {
+    @Param('id') id: number): Promise<Document<PokemonConfig> | NotFoundException> {
     try {
       const result = await this.pokemonService.get(id);
       return result;
     } 
     catch (error) {
-      throw new NotFoundException(error.message);
+      return new NotFoundException(error.message);
     }
   }
 

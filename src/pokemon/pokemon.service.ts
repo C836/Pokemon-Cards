@@ -16,8 +16,8 @@ export class PokemonService {
     return result;
   }
 
-  async getAll({page, type}) {
-    const result = await this.PokemonModel.find(type && {type: type})
+  async getAll(page?: number, type?: string) {
+    const result = await this.PokemonModel.find(type &&{type: type})
     .skip(page ? page * 20 : 0)
     .limit(20)
     .sort({ id: "asc" });
