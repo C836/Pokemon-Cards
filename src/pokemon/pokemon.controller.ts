@@ -44,13 +44,13 @@ export class PokemonController {
 
   @Get('card/:id')
   async get(
-    @Param('id') id: number): Promise<Document<PokemonConfig>> {
+    @Param('id') id: number): Promise<Document<PokemonConfig> | NotFoundException> {
     try {
       const result = await this.pokemonService.get(id);
       return result;
     } 
     catch (error) {
-      throw new NotFoundException(error.message);
+      return new NotFoundException(error.message);
     }
   }
 
