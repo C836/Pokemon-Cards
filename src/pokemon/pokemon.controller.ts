@@ -3,6 +3,8 @@ import { BadRequestException, Body, Query, ConflictException, Controller, Delete
 import { PokemonService } from "./pokemon.service";
 import { PokemonConfig } from "src/types/pokemon.config";
 
+import { ApiOperation, ApiResponse, ApiQuery } from "@nestjs/swagger";
+
 @Controller('pokemon')
 export class PokemonController {
   constructor(
@@ -10,6 +12,16 @@ export class PokemonController {
   ) {}
 
   @Post('new')
+  @ApiOperation({ 
+    summary: 'Adiciona um novo card de pokémon ao banco de dados' })
+  @ApiResponse({
+    status: 400,
+    description: 'Corpo da requisição invalido',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Card registrado com sucesso',
+  })
   async create(
     @Body() pokemon: PokemonConfig): Promise<Document<PokemonConfig> | BadRequestException | ConflictException> {
 
@@ -30,6 +42,12 @@ export class PokemonController {
   }
 
   @Get('cards/:page?')
+  @ApiOperation({ 
+    summary: 'Operação para listagem de cartas' })
+  @ApiResponse({
+    status: 200,
+    description: 'Lista todas as entradas de acordo com os parâmetros selecionados',
+  })
   async getAll(
     @Param('page') page: number,
     @Query('type') type: string): Promise<Document<PokemonConfig>[]> {
@@ -43,6 +61,16 @@ export class PokemonController {
   }
 
   @Get('card/:id')
+  @ApiOperation({ 
+    summary: 'Pesquisa de card por ID único' })
+  @ApiResponse({
+    status: 404,
+    description: 'Id não encontrado no banco de dados',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Retorna o card selecionado',
+  })
   async get(
     @Param('id') id: number): Promise<Document<PokemonConfig>> {
     try {
@@ -55,6 +83,20 @@ export class PokemonController {
   }
 
   @Patch('update/:target')
+  @ApiOperation({ 
+    summary: 'Atualiza uma ou mais propriedades de um card' })
+  @ApiResponse({
+    status: 404,
+    description: 'Id não encontrado no banco de dados',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Corpo da requisição invalido',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Card atualizado com sucesso',
+  })
   async update(
     @Param('target') id:number, 
     @Body() pokemon: PokemonConfig): Promise<string | NotFoundException | BadRequestException> {
@@ -72,6 +114,16 @@ export class PokemonController {
   }
 
   @Delete('delete/:target')
+  @ApiOperation({ 
+    summary: 'Deleta um registro do banco de dados' })
+  @ApiResponse({
+    status: 404,
+    description: 'Id não encontrado no banco de dados',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Card deletado com sucesso',
+  })
   async delete(
     @Param('target') id:number): Promise<string | NotFoundException> {
     try {
