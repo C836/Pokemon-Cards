@@ -3,15 +3,15 @@ import * as moongose from 'mongoose';
 export const ComparisonSchema = new moongose.Schema(
   {
     data: {
-      winner: Number,
-      loser: Number,
+      winner: { type: Number, required: true },
+      loser: { type: Number, required: true },
       details: {
-        hp: Number,
-        attack: Number,
-        defense: Number,
-        spAttack: Number,
-        spDefense: Number,
-        speed: Number,
+        hp: { type: Number, required: true },
+        attack: { type: Number, required: true },
+        defense: { type: Number, required: true },
+        spAttack: { type: Number, required: true },
+        spDefense: { type: Number, required: true },
+        speed: { type: Number, required: true },
       },
     },
   },

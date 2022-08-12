@@ -2,10 +2,10 @@ import * as moongose from 'mongoose';
 
 export const ArenaSchema = new moongose.Schema({
     data: {
-      pokemon: Number,
-      opponent: Number,
-      log: moongose.Schema.Types.Mixed,
-      win: Boolean,
+      pokemon: { type: Number, required: true },
+      opponent: { type: Number, required: true },
+      log: { Type: moongose.Schema.Types.Mixed, required: true},
+      win: { type: Boolean, required: true },
     }},
   { collection: 'arena' },
 );
