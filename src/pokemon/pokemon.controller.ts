@@ -1,7 +1,7 @@
 import { Document, Error } from 'mongoose';
 import { BadRequestException, Body, Query, ConflictException, Controller, Delete, Get, NotFoundException, Param, Patch, Post } from "@nestjs/common";
 import { PokemonService } from "./pokemon.service";
-import { PokemonConfig } from "src/types/pokemon.config";
+import { PokemonConfig, PokemonTypes } from "src/types/pokemon.config";
 
 import { ApiOperation, ApiResponse, ApiQuery, ApiParam } from "@nestjs/swagger";
 
@@ -55,6 +55,7 @@ export class PokemonController {
   })
   @ApiQuery({
     name: "type",
+    enum: PokemonTypes,
     required: false,
   })
   async getAll(
