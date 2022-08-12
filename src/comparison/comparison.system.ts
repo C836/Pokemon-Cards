@@ -1,7 +1,7 @@
 import { ComparisonConfig } from 'src/types/comparison.config';
 
 export class ComparisonSystem {
-  data: ComparisonConfig;
+  data: ComparisonConfig | false;
 
   constructor(Pokemon, Opponent) {
     this.data = this.comparison(Pokemon, Opponent);
@@ -55,6 +55,8 @@ export class ComparisonSystem {
       };
 
       return result;
+    } else {
+      return false
     }
   }
 }

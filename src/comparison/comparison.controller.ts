@@ -1,4 +1,4 @@
-import { Controller, Post, Param, Query, Get, NotFoundException } from '@nestjs/common';
+import { Controller, Post, Param, Query, Get, NotFoundException, ConflictException } from '@nestjs/common';
 
 import { PokemonService } from 'src/pokemon/pokemon.service';
 import { ComparisonService } from './comparison.service';
@@ -14,16 +14,22 @@ export class ComparisonController {
   @Post('/:pokemon')
   async battle(
     @Param('pokemon') pokemonId: number,
-    @Query('vs') opponentId: number): Promise<ComparisonSystem | NotFoundException> {
+    @Query('vs') opponentId: number): Promise<ComparisonSystem | NotFoundException | ConflictException> {
 
     try {
       const Pokemon = await this.pokemonService.get(pokemonId);
       const Opponent = await this.pokemonService.get(opponentId);
 
       const result = new ComparisonSystem(Pokemon, Opponent);
+
       console.log(result)
 
-      return this.comparisonService.comparison(result);
+      if(result.data) {
+        return this.comparisonService.comparison(result);
+      } else {
+        return new ConflictException("Draw")
+      } 
+      
     } catch (error) {
         return new NotFoundException(error.message)
         
