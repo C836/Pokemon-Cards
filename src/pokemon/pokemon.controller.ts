@@ -3,7 +3,7 @@ import { BadRequestException, Body, Query, ConflictException, Controller, Delete
 import { PokemonService } from "./pokemon.service";
 import { PokemonConfig } from "src/types/pokemon.config";
 
-import { ApiOperation, ApiResponse, ApiQuery } from "@nestjs/swagger";
+import { ApiOperation, ApiResponse, ApiQuery, ApiParam } from "@nestjs/swagger";
 
 @Controller('pokemon')
 export class PokemonController {
@@ -48,6 +48,15 @@ export class PokemonController {
     status: 200,
     description: 'Lista todas as entradas de acordo com os parâmetros selecionados',
   })
+  @ApiQuery({
+    name: "page",
+    type: "number",
+    required: false,
+  })
+  @ApiQuery({
+    name: "type",
+    required: false,
+  })
   async getAll(
     @Query('page') page?: number,
     @Query('type') type?: string): Promise<Document<PokemonConfig>[]> {
@@ -70,6 +79,10 @@ export class PokemonController {
   @ApiResponse({
     status: 200,
     description: 'Retorna o card selecionado',
+  })
+  @ApiParam({
+    name: 'id',
+    type: "number"
   })
   async get(
     @Param('id') id: number): Promise<Document<PokemonConfig> | NotFoundException> {
@@ -97,6 +110,10 @@ export class PokemonController {
     status: 201,
     description: 'Card atualizado com sucesso',
   })
+  @ApiParam({
+    name: 'id',
+    type: "number"
+  })
   async update(
     @Param('target') id:number, 
     @Body() pokemon: PokemonConfig): Promise<string | NotFoundException | BadRequestException> {
@@ -123,6 +140,10 @@ export class PokemonController {
   @ApiResponse({
     status: 201,
     description: 'Card deletado com sucesso',
+  })
+  @ApiParam({
+    name: 'id',
+    type: "number"
   })
   async delete(
     @Param('target') id:number): Promise<string | NotFoundException> {
