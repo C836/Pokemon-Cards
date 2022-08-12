@@ -4,6 +4,8 @@ import { PokemonService } from 'src/pokemon/pokemon.service';
 import { ArenaService } from './arena.service';
 import { BattleSystem } from './arena.system';
 
+import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+
 @Controller('arena')
 export class ArenaController {
   constructor(
@@ -12,6 +14,16 @@ export class ArenaController {
   ) {}
 
   @Post('/:pokemon')
+  @ApiOperation({ 
+    summary: 'Rota de batalhas' })
+  @ApiResponse({
+    status: 404,
+    description: 'Id não encontrado no banco de dados',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Retorna um log completo da batalha e envia para o bando de dados',
+  })
   async battle(
     @Param('pokemon') pokemonId: number,
     @Query('vs') opponentId: number): Promise<BattleSystem | NotFoundException> {
@@ -29,6 +41,16 @@ export class ArenaController {
   }
 
   @Get('/log/:pokemon')
+  @ApiOperation({ 
+    summary: 'Consultas de resultados de batalhas anteriores' })
+  @ApiResponse({
+    status: 404,
+    description: 'Id não encontrado no banco de dados',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Retorna todos os registros de batalha do pokémon selecionado',
+  })
   async getLog(@Param('pokemon') pokemonId: number): Promise<BattleSystem[] | NotFoundException> {
 
     try {
