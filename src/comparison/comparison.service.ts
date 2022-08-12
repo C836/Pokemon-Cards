@@ -15,4 +15,12 @@ export class ComparisonService {
     const data = await new this.ComparisonModel(result).save();
     return data;
   }
+
+  async search(id: number) {
+    const result = await this.ComparisonModel.find({
+      $or: [{ 'data.winner': id }, { 'data.loser': id }],
+    }).orFail();
+
+    return result;
+  }
 }

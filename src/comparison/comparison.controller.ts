@@ -29,4 +29,18 @@ export class ComparisonController {
         
     }
   }
+
+  @Get('/search/:pokemon')
+  async getLog(@Param('pokemon') pokemonId: number): Promise<ComparisonSystem[] | NotFoundException> {
+
+    try {
+      const logs = await this.comparisonService.search(pokemonId);
+      return logs
+
+    } catch(error) {
+      return new NotFoundException(error.message)
+
+    }
+
+  }
 }
