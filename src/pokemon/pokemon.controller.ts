@@ -96,7 +96,7 @@ export class PokemonController {
     }
   }
 
-  @Patch('update/:target')
+  @Patch('update/:id')
   @ApiOperation({ 
     summary: 'Atualiza uma ou mais propriedades de um card' })
   @ApiResponse({
@@ -116,7 +116,7 @@ export class PokemonController {
     type: "number"
   })
   async update(
-    @Param('target') id:number, 
+    @Param('id') id:number, 
     @Body() pokemon: PokemonConfig): Promise<string | NotFoundException | BadRequestException> {
     try {
       await this.pokemonService.update(id, pokemon)
@@ -131,7 +131,7 @@ export class PokemonController {
     }
   }
 
-  @Delete('delete/:target')
+  @Delete('delete/:id')
   @ApiOperation({ 
     summary: 'Deleta um registro do banco de dados' })
   @ApiResponse({
@@ -142,12 +142,8 @@ export class PokemonController {
     status: 201,
     description: 'Card deletado com sucesso',
   })
-  @ApiParam({
-    name: 'id',
-    type: "number"
-  })
   async delete(
-    @Param('target') id:number): Promise<string | NotFoundException> {
+    @Param('id') id:number): Promise<string | NotFoundException> {
     try {
       await this.pokemonService.delete(id)
       return `Card id ${id} removed from database`;
