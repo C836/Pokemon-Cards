@@ -51,13 +51,13 @@ export class BattleSystem {
       log.push(this.format(attacker, defender, preDamageHp, critical, multiplier, finalDamage));
     }
 
-    const win = OpponentHp <= 0;
+    const winner = OpponentHp <= 0 ? Pokemon : Opponent;
+    const loser = PokemonHp <= 0 ? Pokemon : Opponent;
 
     return {
-      pokemon: Pokemon.id,
-      opponent: Opponent.id,
+      winner: winner.id,
+      loser: loser.id,
       log: log,
-      win: win,
     };
   }
 
