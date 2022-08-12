@@ -15,6 +15,10 @@ export class PokemonController {
   @ApiOperation({ 
     summary: 'Adiciona um novo card de pokémon ao banco de dados' })
   @ApiResponse({
+    status: 409,
+    description: 'Pokémon com o id já registrado no banco de dados',
+  })
+  @ApiResponse({
     status: 400,
     description: 'Corpo da requisição invalido',
   })
