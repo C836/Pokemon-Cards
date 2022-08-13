@@ -14,7 +14,7 @@ export class ComparisonController {
   ) {}
 
   
-  @Post('/:pokemon')
+  @Post('/:id')
   @ApiOperation({ 
     summary: 'Rota para comparação de cards' })
   @ApiResponse({
@@ -30,7 +30,7 @@ export class ComparisonController {
     description: 'Retorna o resultado da comparação e envia para o bando de dados',
   })
   async battle(
-    @Param('pokemon') pokemonId: number,
+    @Param('id') pokemonId: number,
     @Query('vs') opponentId: number): Promise<ComparisonSystem | NotFoundException | ConflictException> {
 
     try {
@@ -51,7 +51,7 @@ export class ComparisonController {
     }
   }
 
-  @Get('/search/:pokemon')
+  @Get('/search/:id')
   @ApiOperation({ 
     summary: 'Consultas de resultados de comparações anteriores' })
   @ApiResponse({
@@ -62,7 +62,7 @@ export class ComparisonController {
     status: 201,
     description: 'Retorna todos os registros de comparações do pokémon selecionado',
   })
-  async getLog(@Param('pokemon') pokemonId: number): Promise<ComparisonSystem[] | NotFoundException> {
+  async getLog(@Param('id') pokemonId: number): Promise<ComparisonSystem[] | NotFoundException> {
 
     try {
       const logs = await this.comparisonService.search(pokemonId);

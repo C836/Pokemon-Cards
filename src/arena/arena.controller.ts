@@ -13,7 +13,7 @@ export class ArenaController {
     private pokemonService: PokemonService,
   ) {}
 
-  @Post('/:pokemon')
+  @Post('/:id')
   @ApiOperation({ 
     summary: 'Rota de batalhas' })
   @ApiResponse({
@@ -25,7 +25,7 @@ export class ArenaController {
     description: 'Retorna um log completo da batalha e envia para o bando de dados',
   })
   async battle(
-    @Param('pokemon') pokemonId: number,
+    @Param('id') pokemonId: number,
     @Query('vs') opponentId: number): Promise<BattleSystem | NotFoundException> {
 
     try {
@@ -40,7 +40,7 @@ export class ArenaController {
     }
   }
 
-  @Get('/log/:pokemon')
+  @Get('/log/:id')
   @ApiOperation({ 
     summary: 'Consultas de resultados de batalhas anteriores' })
   @ApiResponse({
@@ -51,7 +51,7 @@ export class ArenaController {
     status: 201,
     description: 'Retorna todos os registros de batalha do pokémon selecionado',
   })
-  async getLog(@Param('pokemon') pokemonId: number): Promise<BattleSystem[] | NotFoundException> {
+  async getLog(@Param('id') pokemonId: number): Promise<BattleSystem[] | NotFoundException> {
 
     try {
       const logs = await this.arenaService.getLogs(pokemonId);
