@@ -136,12 +136,16 @@ $ git clone https://github.com/C836/Pokemon-Cards.git
 $ cd Pokemon-Cards
 ```
 
-3. O projeto armazena as cartas e resultados por meio do [MongoDB](https://www.mongodb.com/cloud). Edite o arquivo [.env](https://github.com/C836/Pokemon-Cards/blob/main/.env_example) de acordo com seu usuário e senha. Ao iniciar a aplicação, a conexão será feita automaticamente
+3. O projeto armazena as cartas e resultados por meio do [MongoDB](https://www.mongodb.com/cloud). Edite o arquivo [.env](https://github.com/C836/Pokemon-Cards/blob/main/.env_example) de acordo com seu usuário e senha. Ao iniciar a aplicação, a conexão será feita automaticamente.
 
 ```bash
-# .env
-DB_USER={seu usuário}
-DB_PASSWORD={sua senha}
+# URL de conexão:
+# mongodb+srv://<USUARIO>:<SENHA>@<CLUSTER>/<COLLECTION>
+
+DB_USER=##
+DB_PASSWORD=##
+DB_CLUSTER=##
+DB_COLLECTION=##
 ```
 
 4. Instale as dependências necessárias e inicie a aplicação.
