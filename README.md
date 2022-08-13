@@ -20,7 +20,7 @@ O Projeto conta com uma [documentação](https://filmes-apirest.herokuapp.com/ap
 
 ### Principais endpoints
 
-1. Criação de cards
+#### Criação de cards
 
 Recebe o modelo do card no corpo da requisição e envia para o banco de dados.
 
@@ -44,7 +44,7 @@ Caso o id selecionado já exista no banco de dados, retorna o erro 409.
 
 ---
 
-2. Comparação de cards
+#### Comparação de cards
 
 Recebe dois id's de pokémons distintos como parâmetro e retorna um objeto com os atributos vencedores.
 
@@ -68,7 +68,7 @@ Exemplo:
 }
 ```
 
-3. Batalhas
+#### Batalhas
 
 Faz uso dos atributos e tipos do pokémon para calculos de dano. Recebe dois id's de pokémons distintos como parâmetro e retorna um log completo dos turnos.
 
@@ -136,7 +136,15 @@ $ git clone https://github.com/C836/Pokemon-Cards.git
 $ cd Pokemon-Cards
 ```
 
-2. Instale as dependências necessárias e inicie a aplicação.
+2. O projeto armazena as cartas e resultados por meio do [MongoDB](https://www.mongodb.com/cloud). Edite o arquivo [.env](https://github.com/C836/Pokemon-Cards/blob/main/.env_example) de acordo com seu usuário e senha. Ao iniciar a aplicação, a conexão será feita automaticamente
+
+```bash
+# .env
+DB_USER={seu usuário}
+DB_PASSWORD={sua senha}
+```
+
+3. Instale as dependências necessárias e inicie a aplicação.
 
 ```bash
 $ npm install
