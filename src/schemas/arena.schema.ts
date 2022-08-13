@@ -4,7 +4,7 @@ export const ArenaSchema = new moongose.Schema({
     data: {
       pokemon: { type: Number, required: true },
       opponent: { type: Number, required: true },
-      log: { Type: moongose.Schema.Types.Mixed, required: true},
+      log: { type: moongose.Schema.Types.Mixed, required: true},
       win: { type: Boolean, required: true },
     }},
   { collection: 'arena' },
