@@ -9,7 +9,11 @@ import { PokemonModule } from './pokemon/pokemon.module';
 @Module({
   imports: [
     MongooseModule.forRoot(
-      `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@pokecards.uz4nbjp.mongodb.net/?retryWrites=true&w=majority`,
+      `mongodb+srv://
+      ${process.env.DB_USER}:
+      ${process.env.DB_PASSWORD}@
+      ${process.env.DB_CLUSTER}/
+      ${process.env.DB_COLLECTION}`,
     ),
     PokemonModule,
     ComparisonModule,
