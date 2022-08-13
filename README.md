@@ -118,11 +118,11 @@ Exemplo:
 
 ## 📥 Instalação
 
-### Pré-requisitos:
+#### Local:
 
-- [Node.js](https://nodejs.org/en/)
+1. Instale o [Node.js](https://nodejs.org/en/). 
 
-1. Faça o download como ZIP clicando neste [link](https://github.com/C836/Pokemon-Cards/archive/refs/heads/main.zip) e extraia a pasta no local de sua preferência ou siga o passo a passo para fazer a instalação através do terminal do [Git:](https://git-scm.com/)
+2. Faça o download como ZIP clicando neste [link](https://github.com/C836/Pokemon-Cards/archive/refs/heads/main.zip) e extraia a pasta no local de sua preferência ou siga o passo a passo para fazer a instalação através do terminal do [Git:](https://git-scm.com/)
 
 ```bash
 # Navegue pelos arquivos com o comando "cd" e faça o download do projeto
@@ -136,7 +136,7 @@ $ git clone https://github.com/C836/Pokemon-Cards.git
 $ cd Pokemon-Cards
 ```
 
-2. O projeto armazena as cartas e resultados por meio do [MongoDB](https://www.mongodb.com/cloud). Edite o arquivo [.env](https://github.com/C836/Pokemon-Cards/blob/main/.env_example) de acordo com seu usuário e senha. Ao iniciar a aplicação, a conexão será feita automaticamente
+3. O projeto armazena as cartas e resultados por meio do [MongoDB](https://www.mongodb.com/cloud). Edite o arquivo [.env](https://github.com/C836/Pokemon-Cards/blob/main/.env_example) de acordo com seu usuário e senha. Ao iniciar a aplicação, a conexão será feita automaticamente
 
 ```bash
 # .env
@@ -144,12 +144,27 @@ DB_USER={seu usuário}
 DB_PASSWORD={sua senha}
 ```
 
-3. Instale as dependências necessárias e inicie a aplicação.
+4. Instale as dependências necessárias e inicie a aplicação.
 
 ```bash
 $ npm install
 
 $ npm start
+```
+
+#### Docker:
+
+```bash
+$ docker build -t pokecards .
+```
+
+Substitua as chaves com suas credênciais do [Atlas](https://cloud.mongodb.com) e inicie a aplicação atráves do comando abaixo.
+
+```bash
+$ docker run -p 3300:3300 
+  -e DB_USER=## 
+  -e DB_PASSWORD=## 
+  pokecards
 ```
 
 ## 📝 Licença
