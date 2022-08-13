@@ -1,8 +1,7 @@
 export interface BattleDataConfig {
-  pokemon: number;
-  opponent: number;
+  winner: number;
+  loser: number;
   log: TurnConfig[];
-  win: boolean;
 }
 
 export interface TurnConfig {

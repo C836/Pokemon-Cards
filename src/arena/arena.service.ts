@@ -16,7 +16,7 @@ export class ArenaService {
 
   async getLogs(id: number) {
 
-      const result = await this.BattleModel.find({$or:[{'data.pokemon': id},{'data.opponent': id}]}).orFail();
+      const result = await this.BattleModel.find({$or:[{'data.winner': id},{'data.loser': id}]}).orFail();
 
         return result
       
