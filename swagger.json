@@ -1,0 +1,322 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/pokemon/new": {
+      "post": {
+        "operationId": "PokemonController_create",
+        "summary": "Adiciona um novo card de pokémon ao banco de dados",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/PokemonConfig" }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Card registrado com sucesso" },
+          "400": { "description": "Corpo da requisição invalido" },
+          "409": {
+            "description": "Pokémon com o id já registrado no banco de dados"
+          }
+        },
+        "tags": ["Pokemon"]
+      }
+    },
+    "/pokemon/cards/{page}": {
+      "get": {
+        "operationId": "PokemonController_getAll",
+        "summary": "Operação para listagem de cartas",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "type",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "enum": [
+                "bug",
+                "dark",
+                "dragon",
+                "electric",
+                "fairy",
+                "fighting",
+                "fire",
+                "flying",
+                "ghost",
+                "grass",
+                "ground",
+                "ice",
+                "normal",
+                "poison",
+                "psychic",
+                "rock",
+                "steel",
+                "water"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista todas as entradas de acordo com os parâmetros selecionados"
+          }
+        },
+        "tags": ["Pokemon"]
+      }
+    },
+    "/pokemon/card/{id}": {
+      "get": {
+        "operationId": "PokemonController_get",
+        "summary": "Pesquisa de card por ID único",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Retorna o card selecionado" },
+          "404": { "description": "Id não encontrado no banco de dados" }
+        },
+        "tags": ["Pokemon"]
+      }
+    },
+    "/pokemon/update/{id}": {
+      "patch": {
+        "operationId": "PokemonController_update",
+        "summary": "Atualiza uma ou mais propriedades de um card",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "number" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/PokemonConfig" }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Card atualizado com sucesso" },
+          "400": { "description": "Corpo da requisição invalido" },
+          "404": { "description": "Id não encontrado no banco de dados" }
+        },
+        "tags": ["Pokemon"]
+      }
+    },
+    "/pokemon/delete/{id}": {
+      "delete": {
+        "operationId": "PokemonController_delete",
+        "summary": "Deleta um registro do banco de dados",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": {
+          "201": { "description": "Card deletado com sucesso" },
+          "404": { "description": "Id não encontrado no banco de dados" }
+        },
+        "tags": ["Pokemon"]
+      }
+    },
+    "/comparison/{id}": {
+      "post": {
+        "operationId": "ComparisonController_battle",
+        "summary": "Rota para comparação de cards",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "vs",
+            "required": true,
+            "in": "query",
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Retorna o resultado da comparação e envia para o bando de dados"
+          },
+          "404": { "description": "Id não encontrado no banco de dados" },
+          "409": {
+            "description": "A comparação resultou em um empate e não foi registrada no banco de dados"
+          }
+        },
+        "tags": ["Comparison"]
+      }
+    },
+    "/comparison/search/{id}": {
+      "get": {
+        "operationId": "ComparisonController_getLog",
+        "summary": "Consultas de resultados de comparações anteriores",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Retorna todos os registros de comparações do pokémon selecionado"
+          },
+          "404": { "description": "Id não encontrado no banco de dados" }
+        },
+        "tags": ["Comparison"]
+      }
+    },
+    "/arena/{id}": {
+      "post": {
+        "operationId": "ArenaController_battle",
+        "summary": "Rota de batalhas",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "vs",
+            "required": true,
+            "in": "query",
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Retorna um log completo da batalha e envia para o bando de dados"
+          },
+          "404": { "description": "Id não encontrado no banco de dados" }
+        },
+        "tags": ["Arena"]
+      }
+    },
+    "/arena/log/{id}": {
+      "get": {
+        "operationId": "ArenaController_getLog",
+        "summary": "Consultas de resultados de batalhas anteriores",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Retorna todos os registros de batalha do pokémon selecionado"
+          },
+          "404": { "description": "Id não encontrado no banco de dados" }
+        },
+        "tags": ["Arena"]
+      }
+    }
+  },
+  "info": {
+    "title": "Pokemon Cards",
+    "description": "Todas as requisições relacionadas aos cards são feitas atráves do ID único do pokémon, de acordo com a [pokédex oficial](https://www.pokemon.com/br/pokedex/).",
+    "version": "1.0.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "Pokemon",
+      "description": "Operações relacionadas aos cards dos pokémons."
+    },
+    {
+      "name": "Comparison",
+      "description": "Rotas para comparações de stats dos cards. Utiliza os cards registrados no banco de dados para consulta de atributos."
+    },
+    {
+      "name": "Arena",
+      "description": "Rotas para batalhas entre pokémons. Faz uso dos tipos e atributos para calculos de dano. Retorna um log completo dos turnos juntamente com o card vendedor."
+    }
+  ],
+  "servers": [],
+  "components": {
+    "schemas": {
+      "PokemonConfig": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "Id único do pokémon (de acordo com a pokédex oficial)",
+            "example": "130"
+          },
+          "name": {
+            "type": "string",
+            "description": "Nome do pokémon",
+            "example": "Gyarados"
+          },
+          "type": {
+            "description": "Tipo do pokémon (em inglês)",
+            "example": "[\"water\", \"flying\"]",
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "attributes": {
+            "type": "object",
+            "properties": {
+              "hp": { "type": "number", "description": "Pontos de vida" },
+              "attack": {
+                "type": "number",
+                "description": "Valor de ataque para habilidades físicas"
+              },
+              "defense": {
+                "type": "number",
+                "description": "Resistência a ataques físicos"
+              },
+              "spAttack": {
+                "type": "number",
+                "description": "Valor de ataque para habilidades especiais"
+              },
+              "spDefense": {
+                "type": "number",
+                "description": "Resistência a habilidades especiais"
+              },
+              "speed": {
+                "type": "number",
+                "description": "Valor para determinar quem irá agir primeiro na batalha"
+              }
+            },
+            "example": {
+              "hp": 95,
+              "attack": 125,
+              "defense": 79,
+              "spAttack": 60,
+              "spDefense": 100,
+              "speed": 81
+            }
+          }
+        },
+        "required": ["id", "name", "type", "attributes"]
+      }
+    }
+  }
+}
