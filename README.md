@@ -2,23 +2,15 @@
 
 Sistema de registro de cartas e batalhas pokémon, com comparações por stats, tipos e efetividade.
 
-<div>
-<img src="https://img.shields.io/badge/nestjs-E0234E?style=for-the-badge&logo=nestjs&logoColor=white"/>
-<img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white"/>
-<img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white"/>
-<img src="https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white"/>
-<img src="https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=Swagger&logoColor=white"/>
-</div>
-
-</div>
+![Nest.js](https://img.shields.io/badge/nestjs-E0234E?style=for-the-badge&logo=nestjs&logoColor=white) ![Typescript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white) ![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white) ![npm](https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white) ![Swagger](https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=Swagger&logoColor=white) ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 
 ## 💻 Sobre
 
-A aplicação consiste em um sistema de batalhas pokémon, juntamente com uma API que fornece todos os dados necessários para seu funcionamento. Cada Card contém um id (de acordo com a pokédex oficial), stats de batalha e seus tipos, que terão influência nos calculos de dano. A API armazena todos os resultados das batalhas, que consiste em um log de turnos entre os duelistas, informando os pontos de vida, o dano e as variáveis do calculo final(crítico e fraquezas).
-
-O Projeto conta com uma [documentação](https://filmes-apirest.herokuapp.com/api) com todas as rotas, modelos e exemplos das requisições. Para acessar, siga o passo a passo na sessão de instalação.
+A aplicação consiste em um sistema de batalhas pokémon, juntamente com uma API que fornece todos os dados necessários para seu funcionamento. Cada Card contém um id (de acordo com a pokédex oficial), stats de batalha e seus tipos, que terão influência nos calculos de dano e comparações. A API armazena todos os resultados no banco de dados.
 
 ### Principais endpoints
+
+O Projeto conta com uma [documentação](https://filmes-apirest.herokuapp.com/api) completa, com todas as rotas, modelos e exemplos das requisições (apenas visualização). Para ter acesso aos testes com o banco de dados, siga o passo a passo na sessão de [instalação](#📥-instalação).
 
 #### Criação de cards
 
@@ -41,8 +33,6 @@ Exemplo:
 ```
 
 Caso o id selecionado já exista no banco de dados, retorna o erro 409.
-
----
 
 #### Comparação de cards
 
@@ -114,11 +104,13 @@ Exemplo:
 
 - [x] Operações para comparação de cartas
 
-- [x] Armazenamento de cartas e dos resultados das batalhas
+- [x] Armazenamento de cartas e dos resultados das batalhas e comparações
+
+- [x] Tratamento de erros
+
+- [x] Documentação completa com todas as rotas e modelos de requisição
 
 ## 📥 Instalação
-
-#### Local:
 
 1. Instale o [Node.js](https://nodejs.org/en/). 
 
@@ -156,19 +148,26 @@ $ npm install
 $ npm start
 ```
 
-#### Docker:
+### 🐋 Docker
 
+Substitua as chaves do arquivo .env com suas credênciais do [Atlas](https://cloud.mongodb.com) e inicie a aplicação atráves dos comando abaixo.
+
+#### Local
 ```bash
-$ docker build -t pokecards .
+$ docker build -t pokecards <local de instalação>
+
+# substitua o caminho do arquivo .env caso necessário
+$ sudo docker run --name pokecards --env-file .env pokecards
+
+# ou insira as chaves diretamente pelo comando
+$ sudo docker run --name pokecards -e PORT=@@ -e DB_USER=@@ -e DB_PASSWORD=@@ -e DB_CLUSTER=@@ -e DB_COLLECTION="pokecards" pokecards
 ```
 
-Substitua as chaves com suas credênciais do [Atlas](https://cloud.mongodb.com) e inicie a aplicação atráves do comando abaixo.
+#### Dockerhub
 
+Instale e inicie aplicação diretamente atráves do comando:
 ```bash
-$ docker run -p 3300:3300 
-  -e DB_USER=## 
-  -e DB_PASSWORD=## 
-  pokecards
+$ docker run -e PORT=3333 -e DB_USER=@@ -e DB_PASSWORD=@@ -e DB_CLUSTER=@@ -e DB_COLLECTION="pokecards" c836/pokecards
 ```
 
 ## 📝 Licença
