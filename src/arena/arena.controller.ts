@@ -4,6 +4,7 @@ import {
   Post,
   Param,
   Query,
+  ConflictException,
   NotFoundException,
 } from '@nestjs/common';
 
@@ -36,7 +37,11 @@ export class ArenaController {
   async battle(
     @Param('id') pokemonId: number,
     @Query('vs') opponentId: number,
-  ): Promise<ArenaSystem | NotFoundException> {
+  ): Promise<ArenaSystem | NotFoundException | ConflictException> {
+
+    if(pokemonId === opponentId) {
+      return new ConflictException('Draw');
+    }
 
     try {
       const Pokemon = await this.pokemonService.get(pokemonId);

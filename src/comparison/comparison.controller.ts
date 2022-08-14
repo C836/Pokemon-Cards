@@ -44,6 +44,11 @@ export class ComparisonController {
     @Query('vs') opponentId: number,
   ): Promise<ComparisonSystem | NotFoundException | ConflictException> {
     try {
+
+      if (pokemonId === opponentId) {
+        return new ConflictException('Draw');
+      }
+
       const Pokemon = await this.pokemonService.get(pokemonId);
       const Opponent = await this.pokemonService.get(opponentId);
 
