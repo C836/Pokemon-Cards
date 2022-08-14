@@ -1,6 +1,6 @@
 import { pokeTypes } from './pokemon.types';
 
-export function getMultiplier(pokemonTypes, opponentTypes) {
+export function getMultiplier(pokemonTypes: string[], opponentTypes: string[]) {
   let multipliersArray = [];
 
   opponentTypes.map((opponentType) => {
@@ -9,5 +9,6 @@ export function getMultiplier(pokemonTypes, opponentTypes) {
     });
   });
 
-  return Math.max(...multipliersArray);
+  const maxValueMultiplier = Math.max(...multipliersArray);
+  return maxValueMultiplier;
 }

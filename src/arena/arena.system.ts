@@ -1,14 +1,15 @@
-import { BattleDataConfig } from "src/types/arena.config";
-import { getMultiplier } from "src/utils/weakness/typeMultiplier";
+import { ArenaConfig } from 'src/types/arena.config';
+import { PokemonConfig } from 'src/types/pokemon.config';
+import { getMultiplier } from 'src/utils/weakness/typeMultiplier';
 
-export class BattleSystem {
-  data: BattleDataConfig
+export class ArenaSystem {
+  data: ArenaConfig;
 
-  constructor(Pokemon, Opponent) {
+  constructor(Pokemon: PokemonConfig, Opponent: PokemonConfig) {
     this.data = this.battle(Pokemon, Opponent);
   }
 
-  battle(Pokemon, Opponent) {
+  battle(Pokemon: PokemonConfig, Opponent: PokemonConfig) {
     const log = [];
 
     let PokemonHp = Pokemon.attributes.hp.valueOf();
@@ -33,11 +34,16 @@ export class BattleSystem {
       const attackerTypes = attacker.type;
       const defenderTypes = defender.type;
 
-      const damage = this.finalDamage(finalAttack, attackerTypes, finalDefense, defenderTypes);
-      const { multiplier, critical, finalDamage } = damage
+      const damage = this.finalDamage(
+        finalAttack,
+        attackerTypes,
+        finalDefense,
+        defenderTypes,
+      );
+      const { multiplier, critical, finalDamage } = damage;
 
       let defenderHp = PokemonTurn ? OpponentHp : PokemonHp;
-      const preDamageHp = defenderHp.valueOf()
+      const preDamageHp = defenderHp.valueOf();
 
       if (PokemonTurn) {
         OpponentHp -= finalDamage;
@@ -48,7 +54,16 @@ export class BattleSystem {
       PokemonTurn = !PokemonTurn;
       OpponentTurn = !OpponentTurn;
 
-      log.push(this.format(attacker, defender, preDamageHp, critical, multiplier, finalDamage));
+      log.push(
+        this.format(
+          attacker.name,
+          defender.name,
+          preDamageHp,
+          critical,
+          multiplier,
+          finalDamage,
+        ),
+      );
     }
 
     const winner = OpponentHp <= 0 ? Pokemon : Opponent;
@@ -61,15 +76,17 @@ export class BattleSystem {
     };
   }
 
-  format(attacker, defender, defenderhp, critical, multiplier, finalDamage) {
-    const attackerName = attacker.name;
-    const defenderName = defender.name;
-
+  format(
+    attacker: string,
+    defender: string,
+    defenderhp: number,
+    critical: boolean,
+    multiplier: number,
+    finalDamage: number,
+  ) {
     const result = {
-      attacker: attackerName,
-      atk: attacker.atk,
-      defender: defenderName,
-      def: defender.def,
+      attacker: attacker,
+      defender: defender,
       hp: defenderhp,
       critical: critical,
       multiplier: multiplier,
@@ -79,22 +96,27 @@ export class BattleSystem {
     return result;
   }
 
-  finalDamage(atk, attackerTypes, def, defenderTypes) {
-    let damage = atk;
+  finalDamage(
+    attack: number,
+    attackerTypes: string[],
+    defense: number,
+    defenderTypes: string[],
+  ) {
+    let damage = attack;
 
     const isCritical = Math.floor(this.randomNumber(1, 10)) === 10;
     const typeMultiplier = getMultiplier(attackerTypes, defenderTypes);
 
-    damage = damage * typeMultiplier    
-    damage = isCritical ? damage * 2 : damage
+    damage = damage * typeMultiplier;
+    damage = isCritical ? damage * 2 : damage;
 
-    const finalDamage = damage / (this.randomNumber(2, 3) + (def / 100));
-    const parsedDamage = Math.trunc(finalDamage)
+    const finalDamage = damage / (this.randomNumber(2, 3) + defense / 100);
+    const parsedDamage = Math.trunc(finalDamage);
 
     return {
       multiplier: typeMultiplier,
       critical: isCritical,
-      finalDamage: parsedDamage
+      finalDamage: parsedDamage,
     };
   }
 
