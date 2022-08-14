@@ -61,7 +61,7 @@ export class PokemonController {
     }
   }
 
-  @Get('cards/:page?')
+  @Get('cards')
   @ApiOperation({
     summary: 'Operação para listagem de cartas',
   })
