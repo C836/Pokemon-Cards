@@ -11,13 +11,14 @@ import {
   ConflictException,
   NotFoundException,
 } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiQuery, ApiParam } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiQuery, ApiParam, ApiTags } from '@nestjs/swagger';
 
 import { Document, Error } from 'mongoose';
 
 import { PokemonService } from './pokemon.service';
 import { PokemonConfig, PokemonTypes } from 'src/types/pokemon.config';
 
+@ApiTags('Pokemon')
 @Controller('pokemon')
 export class PokemonController {
   constructor(private pokemonService: PokemonService) {}

@@ -7,13 +7,14 @@ import {
   NotFoundException,
   ConflictException,
 } from '@nestjs/common';
-import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { ComparisonService } from './comparison.service';
 import { ComparisonSystem } from './comparison.system';
 
 import { PokemonService } from 'src/pokemon/pokemon.service';
 
+@ApiTags('Comparison')
 @Controller('comparison')
 export class ComparisonController {
   constructor(

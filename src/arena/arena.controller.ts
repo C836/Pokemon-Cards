@@ -12,8 +12,9 @@ import { PokemonService } from 'src/pokemon/pokemon.service';
 import { ArenaService } from './arena.service';
 import { ArenaSystem } from './arena.system';
 
-import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Arena')
 @Controller('arena')
 export class ArenaController {
   constructor(
