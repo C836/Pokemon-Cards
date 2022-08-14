@@ -1,6 +1,7 @@
-import * as moongose from 'mongoose';
+import { Schema } from 'mongoose';
+import { ArenaSystemConfig } from 'src/types/arena.config';
 
-export const ArenaSchema = new moongose.Schema({
+export const ArenaSchema = new Schema<ArenaSystemConfig>({
   data: {
     winner: {
       type: Number,
@@ -11,7 +12,7 @@ export const ArenaSchema = new moongose.Schema({
       required: true,
     },
     log: {
-      type: moongose.Schema.Types.Mixed,
+      type: Schema.Types.Mixed,
       required: true,
     },
   },
