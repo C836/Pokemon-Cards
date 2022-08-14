@@ -23,6 +23,11 @@ export enum PokemonTypes {
 }
 
 export class PokemonConfig extends Document {
+  @ApiProperty({
+    type: Number,
+    description: 'Id único do pokémon (de acordo com a pokédex oficial)',
+    example: '130',
+  })
   id: number;
 
   @ApiProperty({
@@ -35,13 +40,12 @@ export class PokemonConfig extends Document {
   @ApiProperty({
     type: [String],
     description: 'Tipo do pokémon (em inglês)',
-    example: '["fire", "flying"]',
+    example: '["water", "flying"]',
   })
   type: string[];
 
   @ApiProperty({
     type: 'object',
-    description: 'Atributos de batalha do pokémon',
     properties: {
       hp: {
         type: 'number',
