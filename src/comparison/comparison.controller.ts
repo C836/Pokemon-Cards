@@ -56,10 +56,14 @@ export class ComparisonController {
 
       if (result.data) {
         return this.comparisonService.comparison(result);
-      } else {
+      }
+
+      else {
         return new ConflictException('Draw');
       }
-    } catch (error) {
+    } 
+
+    catch (error) {
       return new NotFoundException(error.message);
     }
   }
@@ -80,10 +84,13 @@ export class ComparisonController {
   async getLog(
     @Param('id') pokemonId: number,
   ): Promise<ComparisonSystem[] | NotFoundException> {
+
     try {
       const logs = await this.comparisonService.search(pokemonId);
       return logs;
-    } catch (error) {
+    } 
+
+    catch (error) {
       return new NotFoundException(error.message);
     }
   }
