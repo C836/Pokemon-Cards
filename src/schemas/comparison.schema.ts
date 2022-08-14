@@ -1,6 +1,7 @@
-import * as moongose from 'mongoose';
+import { Schema } from 'mongoose';
+import { ComparisonSystemConfig } from 'src/types/comparison.config';
 
-export const ComparisonSchema = new moongose.Schema({
+export const ComparisonSchema = new Schema<ComparisonSystemConfig>({
   data: {
     winner: {
       type: Number,
