@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
-import { Model, Document } from 'mongoose';
+import { Model } from 'mongoose';
 
 import { PokemonConfig } from 'src/types/pokemon.config';
 
@@ -9,7 +9,7 @@ import { PokemonConfig } from 'src/types/pokemon.config';
 export class PokemonService {
   constructor(
     @InjectModel('Pokecards')
-    private readonly PokemonModel: Model<Document<PokemonConfig>>,
+    private readonly PokemonModel: Model<PokemonConfig>,
   ) {}
 
   async create(pokemon: PokemonConfig) {

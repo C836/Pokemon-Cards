@@ -1,6 +1,8 @@
-import * as moongose from 'mongoose';
+import { Schema } from 'mongoose';
 
-export const PokemonSchema = new moongose.Schema({
+import { PokemonConfig } from 'src/types/pokemon.config';
+
+export const PokemonSchema = new Schema<PokemonConfig>({
   id: {
     type: Number,
     required: true,
