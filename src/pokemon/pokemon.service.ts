@@ -39,7 +39,7 @@ export class PokemonService {
 
   async update(id: number, pokemon: PokemonConfig) {
     await this.PokemonModel
-      .findOneAndUpdate({ id: id }, pokemon)
+      .findOneAndUpdate({ id: id }, pokemon, {runValidators: true})
       .orFail();
 
     return `Card id ${id} updated successfully`;

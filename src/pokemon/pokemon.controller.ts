@@ -162,6 +162,10 @@ export class PokemonController {
       else if (error instanceof Error.CastError) {
         return new BadRequestException(error.message);
       }
+
+      else if (error instanceof Error.ValidationError) {
+        return new BadRequestException(error.message);
+      }
     }
   }
 
