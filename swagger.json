@@ -24,7 +24,7 @@
         "tags": ["Pokemon"]
       }
     },
-    "/pokemon/cards/{page}": {
+    "/pokemon/cards": {
       "get": {
         "operationId": "PokemonController_getAll",
         "summary": "Operação para listagem de cartas",
@@ -258,7 +258,7 @@
       "description": "Rotas para batalhas entre pokémons. Faz uso dos tipos e atributos para calculos de dano. Retorna um log completo dos turnos juntamente com o card vendedor."
     }
   ],
-  "servers": [],
+  "servers": [{"url":"https://virtserver.swaggerhub.com/GLSEPIOL/Pokemon-Cards/1.0.0"}],
   "components": {
     "schemas": {
       "PokemonConfig": {
