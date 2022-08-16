@@ -10,7 +10,11 @@ A aplicação consiste em um sistema de batalhas pokémon, juntamente com uma AP
 
 ### Principais endpoints
 
-O Projeto conta com uma [documentação](https://filmes-apirest.herokuapp.com/api) completa, com todas as rotas, modelos e exemplos das requisições (apenas visualização). Para ter acesso aos testes com o banco de dados, siga o passo a passo na sessão de [instalação](#📥-instalação).
+O Projeto conta com uma [documentação](https://c836.github.io/Pokemon-Cards) completa, com todas as rotas, modelos e exemplos das requisições (apenas visualização). Para ter acesso aos testes com o banco de dados, siga o passo a passo na sessão de [instalação](#📥-instalação).
+
+```
+http://localhost:3333/doc
+```
 
 #### Criação de cards
 
@@ -134,10 +138,11 @@ $ cd Pokemon-Cards
 # URL de conexão:
 # mongodb+srv://<USUARIO>:<SENHA>@<CLUSTER>/<COLLECTION>
 
-DB_USER=##
-DB_PASSWORD=##
-DB_CLUSTER=##
-DB_COLLECTION=##
+PORT=3333
+DB_USER=@@
+DB_PASSWORD=@@
+DB_CLUSTER=@@
+DB_COLLECTION=pokecards
 ```
 
 4. Instale as dependências necessárias e inicie a aplicação.
@@ -157,10 +162,10 @@ Substitua as chaves do arquivo .env com suas credênciais do [Atlas](https://clo
 $ docker build -t pokecards <local de instalação>
 
 # substitua o caminho do arquivo .env caso necessário
-$ sudo docker run --name pokecards --env-file .env pokecards
+$ sudo docker run --name pokecards --env-file .env -p 3333:3333 pokecards
 
 # ou insira as chaves diretamente pelo comando
-$ sudo docker run --name pokecards -e PORT=@@ -e DB_USER=@@ -e DB_PASSWORD=@@ -e DB_CLUSTER=@@ -e DB_COLLECTION="pokecards" pokecards
+$ sudo docker run --name pokecards -e PORT=3333 -e DB_USER=@@ -e DB_PASSWORD=@@ -e DB_CLUSTER=@@ -e DB_COLLECTION=pokecards pokecards
 ```
 
 #### Dockerhub
@@ -174,4 +179,4 @@ $ docker run -e PORT=3333 -e DB_USER=@@ -e DB_PASSWORD=@@ -e DB_CLUSTER=@@ -e DB
 
 <b>Copyright (c) 2022 Gabriel Lopes</b>
 
-Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](#) para mais detalhes.
+Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](https://github.com/C836/Pokemon-Cards/blob/main/LICENSE) para mais detalhes.

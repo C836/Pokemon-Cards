@@ -1,10 +1,10 @@
 {
-  "name": "pokemon-battles",
+  "name": "pokemon-cards",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "Sistema de registro de cartas e batalhas pokémon, com comparações por stats, tipos e efetividade.",
+  "author": "Gabriel Lopes",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "MIT",
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
