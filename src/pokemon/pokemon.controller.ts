@@ -17,6 +17,7 @@ import { Document, Error } from 'mongoose';
 
 import { PokemonService } from './pokemon.service';
 import { PokemonConfig, PokemonTypes } from 'src/types/pokemon.config';
+import { typeCheck } from 'src/utils/typeCheck';
 
 @Controller('pokemon')
 export class PokemonController {
@@ -50,8 +51,15 @@ export class PokemonController {
     catch (error) {
 
       try {
-        const result = await this.pokemonService.create(pokemon);
-        return result;
+        if(typeCheck(pokemon.type)) {
+          const result = await this.pokemonService.create(pokemon);
+        
+          return result;
+        }
+
+        else {
+          return new BadRequestException("Invalid pokémon type");
+        }
       } 
       
       catch (error) {
@@ -150,8 +158,15 @@ export class PokemonController {
   ): Promise<string | NotFoundException | BadRequestException> {
 
     try {
-      await this.pokemonService.update(id, pokemon);
-      return `Card id ${id} updated successfully`;
+      if(typeCheck(pokemon.type)) {
+        await this.pokemonService.update(id, pokemon);
+        
+        return `Card id ${id} updated successfully`;
+      }
+
+      else {
+        return new BadRequestException("Invalid pokémon type");
+      }
     }
 
     catch (error) {
