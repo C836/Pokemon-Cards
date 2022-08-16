@@ -1,8 +1,11 @@
-export interface BattleDataConfig {
-  pokemon: number;
-  opponent: number;
+export interface ArenaSystemConfig extends Document {
+  data: ArenaConfig;
+}
+
+export interface ArenaConfig {
+  winner: number;
+  loser: number;
   log: TurnConfig[];
-  win: boolean;
 }
 
 export interface TurnConfig {
