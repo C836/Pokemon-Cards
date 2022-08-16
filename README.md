@@ -162,17 +162,17 @@ Substitua as chaves do arquivo .env com suas credênciais do [Atlas](https://clo
 $ docker build -t pokecards <local de instalação>
 
 # substitua o caminho do arquivo .env caso necessário
-$ sudo docker run --name pokecards --env-file .env -p 3333:3333 pokecards
+$ docker run --name pokecards --env-file .env -p 3333:3333 pokecards
 
 # ou insira as chaves diretamente pelo comando
-$ sudo docker run --name pokecards -e PORT=3333 -e DB_USER=@@ -e DB_PASSWORD=@@ -e DB_CLUSTER=@@ -e DB_COLLECTION=pokecards pokecards
+$ docker run --name pokecards -e PORT=3333 -e DB_USER=@@ -e DB_PASSWORD=@@ -e DB_CLUSTER=@@ -e DB_COLLECTION=pokecards pokecards
 ```
 
 #### Dockerhub
 
 Instale e inicie aplicação diretamente atráves do comando:
 ```bash
-$ docker run -e PORT=3333 -e DB_USER=@@ -e DB_PASSWORD=@@ -e DB_CLUSTER=@@ -e DB_COLLECTION="pokecards" c836/pokecards
+$ docker run --name pokecards -e PORT=3333 -e DB_USER=@@ -e DB_PASSWORD=@@ -e DB_CLUSTER=@@ -e DB_COLLECTION="pokecards" c836/pokecards
 ```
 
 ## 📝 Licença
