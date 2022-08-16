@@ -10,7 +10,7 @@ A aplicação consiste em um sistema de batalhas pokémon, juntamente com uma AP
 
 ### Principais endpoints
 
-O Projeto conta com uma [documentação](https://c836.github.io/Pokemon-Cards) completa, com todas as rotas, modelos e exemplos das requisições (apenas visualização). Para ter acesso aos testes com o banco de dados, siga o passo a passo na sessão de [instalação](#📥-instalação).
+O Projeto conta com uma [documentação](https://c836.github.io/Pokemon-Cards) completa, com todas as rotas, modelos e exemplos das requisições (apenas visualização). Para ter acesso aos testes com o banco de dados, siga o passo a passo na sessão de [instalação](#instalação).
 
 ```
 http://localhost:3333/doc
