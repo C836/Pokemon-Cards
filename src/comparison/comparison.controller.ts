@@ -46,7 +46,7 @@ export class ComparisonController {
     try {
 
       if (pokemonId === opponentId) {
-        return new ConflictException('Draw');
+        throw new ConflictException('Draw');
       }
 
       const Pokemon = await this.pokemonService.get(pokemonId);
@@ -59,12 +59,12 @@ export class ComparisonController {
       }
 
       else {
-        return new ConflictException('Draw');
+        throw new ConflictException('Draw');
       }
     } 
 
     catch (error) {
-      return new NotFoundException(error.message);
+      throw new NotFoundException(error.message);
     }
   }
 
@@ -91,7 +91,7 @@ export class ComparisonController {
     } 
 
     catch (error) {
-      return new NotFoundException(error.message);
+      throw new NotFoundException(error.message);
     }
   }
 }

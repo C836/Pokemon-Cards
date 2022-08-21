@@ -45,7 +45,7 @@ export class PokemonController {
 
     try {
       await this.pokemonService.get(pokemon.id);
-      return new ConflictException('Id already registered in database');
+      throw new ConflictException('Id already registered in database');
     } 
     
     catch (error) {
@@ -58,12 +58,12 @@ export class PokemonController {
         }
 
         else {
-          return new BadRequestException("Invalid pokémon type");
+          throw new BadRequestException("Invalid pokémon type");
         }
       } 
       
       catch (error) {
-        return new BadRequestException(error.message);
+        throw new BadRequestException(error.message);
       }
     }
   }
@@ -128,7 +128,7 @@ export class PokemonController {
     } 
 
     catch (error) {
-      return new NotFoundException(error.message);
+      throw new NotFoundException(error.message);
     }
   }
 
@@ -165,21 +165,21 @@ export class PokemonController {
       }
 
       else {
-        return new BadRequestException("Invalid pokémon type");
+        throw new BadRequestException("Invalid pokémon type");
       }
     }
 
     catch (error) {
       if (error instanceof Error.DocumentNotFoundError) {
-        return new NotFoundException(error.message);
+        throw new NotFoundException(error.message);
       }
 
       else if (error instanceof Error.CastError) {
-        return new BadRequestException(error.message);
+        throw new BadRequestException(error.message);
       }
 
       else if (error instanceof Error.ValidationError) {
-        return new BadRequestException(error.message);
+        throw new BadRequestException(error.message);
       }
     }
   }
@@ -206,7 +206,7 @@ export class PokemonController {
     }
 
     catch (error) {
-      return new NotFoundException(error.message);
+      throw new NotFoundException(error.message);
     }
   }
 }
