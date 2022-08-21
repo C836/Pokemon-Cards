@@ -41,7 +41,7 @@ export class ArenaController {
   ): Promise<ArenaSystem | NotFoundException | ConflictException> {
 
     if(pokemonId === opponentId) {
-      return new ConflictException('Draw');
+      throw new ConflictException('Draw');
     }
 
     try {
@@ -53,7 +53,7 @@ export class ArenaController {
     } 
 
     catch (error) {
-      return new NotFoundException(error.message);
+      throw new NotFoundException(error.message);
     }
   }
 
@@ -79,7 +79,7 @@ export class ArenaController {
     }
 
     catch (error) {
-      return new NotFoundException(error.message);
+      throw new NotFoundException(error.message);
     }
   }
 }
